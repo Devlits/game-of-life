@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: badf4f7781b89294db7100b505c85291
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - protoCell: {fileID: 1255441982505597100, guid: 9e74f155fe4c22348b296327a19a27e9,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
