@@ -234,9 +234,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6ea12cc7858ce249932aa7cf21fe2a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updateFrequency: 1
-  gridHorizontalUnits: 5
-  gridVerticalUnits: 5
+  updateFrequency: 0.2
+  gridHorizontalUnits: 50
+  gridVerticalUnits: 50
   predator: {fileID: 4792745075642156624, guid: 90cdc0fe72d6912449f87f9a8c8a21ad,
     type: 3}
   prey: {fileID: 7067923822638026368, guid: 5d68eb8bd4eaac64c9f1a21384ed0479, type: 3}
