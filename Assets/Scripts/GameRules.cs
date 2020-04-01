@@ -36,9 +36,13 @@ public class GameRules
 
         for (int i = 0; i < grid.GetLength(0); i++)
         {
-            for (int j = 0; j < grid.GetLength(1) - 1; j++)
+            for (int j = 0; j < grid.GetLength(1); j++)
             {
                 int neighbours = countNeighbours(grid, i, j);
+
+                if (i == grid.GetLength(0) - 1 && j == grid.GetLength(1) - 1) {
+                    int z;
+                }
 
                 if (neighbours == 3)
                 {
