@@ -2,10 +2,69 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameRules : MonoBehaviour
+
+namespace gamerules
 {
-    public static float vegetableSelfSpawnChance = .00001f;
-    public static float vegetableReproductionChance = 0.01f;
+    public interface IRules
+    {
+        void apply(Board board);
+    }
+
+    public class GameRules
+    {
+        protected DictionaryGrid<int> getNeighboursMap(Board board)
+        {
+            DictionaryGrid<int> neighboursMap = new DictionaryGrid<int>(board.width, board.height);
+
+            foreach (KeyValuePair<int, ICell> pair in board.content)
+            {
+                int key = pair.Key;
+
+                if (neighboursMap.ContainsKey(key)) 
+                    neighboursMap.setRaw(key, neighboursMap.getRaw(key) + 1);
+                else
+                    neighboursMap.setRaw(key, 1);
+            }
+            
+            return neighboursMap;
+        }
+    }
+
+    public class HerbivoreRules: GameRules, IRules
+    {
+        float spawnProb = .00001f;
+        float reproductionProb = 0.01f;
+        public void apply(Board board)
+        {
+            // If somehting breaks, take a look here first
+            Board newState = (Board) board.getEmptyCopy();
+            DictionaryGrid<int> neighboursMap = getNeighboursMap(board);
+
+            foreach (KeyValuePair<int, int> pair in neighboursMap.content)
+            {
+                if (!board.ContainsKey(pair.Key))
+                {
+                    Herbivore candidate;
+                    float reproductionChance = pair.Value * reproductionProb / 8;
+                    if (Random.Range(0f, 1f) < spawnProb) candidate = new Herbivore();
+                    if (Random.Range(0f, 1f) < reproductionChance) candidate = new Herbivore();
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+public class OldGameRules : MonoBehaviour
+{
 
     public static CELL_TYPE[,] step(CELL_TYPE[,] grid)
     {
@@ -29,12 +88,6 @@ public class GameRules : MonoBehaviour
             return primary;
         else
             return fallback;
-    }
-
-    private static int getLoopIndex(int index, int max)
-    {
-        index = index % max;
-        return (index >= 0) ? index : max + index;
     }
 
     private static int countNeighbours(CELL_TYPE[,] grid, int x, int y, CELL_TYPE type)

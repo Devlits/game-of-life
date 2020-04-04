@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using System;
+// using UnityEngine.UI;
+// using System;
 
 public class RenderGrid : MonoBehaviour
 {
@@ -10,8 +10,8 @@ public class RenderGrid : MonoBehaviour
     private int gridHorizontalUnits = 50;
     private int gridVerticalUnits = 50;
 
-    public Button button0;
-    public InputField inputField;
+    // public Button button0;
+    // public InputField inputField;
 
     public GameObject predator;
     public GameObject prey;
@@ -27,27 +27,30 @@ public class RenderGrid : MonoBehaviour
     {
         grid = new CELL_TYPE[gridHorizontalUnits, gridVerticalUnits];
 
-        Button btn0 = button0.GetComponent<Button>();
-        InputField input = inputField.GetComponent<InputField>();
-        inputField.gameObject.SetActive(true);
+        // Button btn0 = button0.GetComponent<Button>();
+        // InputField input = inputField.GetComponent<InputField>();
+        // inputField.gameObject.SetActive(true);
 
-        btn0.onClick.AddListener(() => {
-          inputField.gameObject.SetActive(false);
-          btn0.gameObject.SetActive(false);
-             int cellnumbers = Int32.Parse(input.text);
-             System.Random rnd = new System.Random();
+        // btn0.onClick.AddListener(() =>
+        // {
+        //     inputField.gameObject.SetActive(false);
+        //     btn0.gameObject.SetActive(false);
+        //     int cellnumbers = Int32.Parse(input.text);
+        //     System.Random rnd = new System.Random();
 
-             for (int i = 0; i <= cellnumbers; i++){
-                 int clump_size = rnd.Next(4, 6);
-                 for (int j = 0; j < clump_size; j++){
-                     int x = rnd.Next(0,gridHorizontalUnits);
-                     int y = rnd.Next(0,gridVerticalUnits);
-                     grid[x,y] = CELL_TYPE.PREY;
-                 }
-             }
-             
-          
-          });
+        //     for (int i = 0; i <= cellnumbers; i++)
+        //     {
+        //         int clump_size = rnd.Next(4, 6);
+        //         for (int j = 0; j < clump_size; j++)
+        //         {
+        //             int x = rnd.Next(0, gridHorizontalUnits);
+        //             int y = rnd.Next(0, gridVerticalUnits);
+        //             grid[x, y] = CELL_TYPE.PREY;
+        //         }
+        //     }
+
+
+        // });
 
         cellSize = (Camera.main.orthographicSize * 2) / gridVerticalUnits;
 
@@ -60,6 +63,7 @@ public class RenderGrid : MonoBehaviour
         draw();
         InvokeRepeating("step", updateFrequency, updateFrequency);
     }
+
 
     void step()
     {
