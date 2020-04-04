@@ -24,6 +24,12 @@ public class RenderGrid : MonoBehaviour
     {
         grid = new CELL_TYPE[gridHorizontalUnits, gridVerticalUnits];
 
+        grid[0, 1] = CELL_TYPE.PREY;
+        grid[1, 2] = CELL_TYPE.PREY;
+        grid[2, 0] = CELL_TYPE.PREY;
+        grid[2, 1] = CELL_TYPE.PREY;
+        grid[2, 2] = CELL_TYPE.PREY;
+
         cellSize = (Camera.main.orthographicSize * 2) / gridVerticalUnits;
 
         cellTypeDict = new Dictionary<CELL_TYPE, GameObject> {

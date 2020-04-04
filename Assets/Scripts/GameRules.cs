@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class GameRules : MonoBehaviour
 {
-    public static float vegetableSelfSpawnChance = .0001f;
+    public static float vegetableSelfSpawnChance = .00001f;
+    public static float vegetableReproductionChance = 0.01f;
 
     public static CELL_TYPE[,] step(CELL_TYPE[,] grid)
     {
@@ -14,9 +15,9 @@ public class GameRules : MonoBehaviour
         {
             for (int j = 0; j < grid.GetLength(1); j++)
             {
-                // gridCopy[i, j] = spawnPrey(grid, i, j);
                 gridCopy[i, j] = fallback(selfSpawnVegetable(grid, i, j), grid[i, j]);
                 gridCopy[i, j] = fallback(multiplyVegetable(grid, i, j), gridCopy[i, j]);
+                gridCopy[i, j] = fallback(spawnPrey(grid, i, j), gridCopy[i, j]);
             }
         }
 
@@ -67,10 +68,10 @@ public class GameRules : MonoBehaviour
         }
         else if (neighbours == 2)
         {
-            return grid[i, j];
+            return CELL_TYPE.PRESERVE;
         }
 
-        return CELL_TYPE.NULL;
+        return (grid[i,j] == CELL_TYPE.PREY)? CELL_TYPE.NULL : CELL_TYPE.PRESERVE;
     }
 
     private static CELL_TYPE selfSpawnVegetable(CELL_TYPE[,] grid, int i, int j)
@@ -86,7 +87,7 @@ public class GameRules : MonoBehaviour
         if (grid[i, j] == CELL_TYPE.NULL)
         {
             float neighbours = countNeighbours(grid, i, j, CELL_TYPE.VEGETABLE);
-            float chance = neighbours / 8;
+            float chance = neighbours * vegetableReproductionChance / 8;
             return (Random.Range(0f, 1f) < chance) ? CELL_TYPE.VEGETABLE : CELL_TYPE.PRESERVE;
         }
         else
