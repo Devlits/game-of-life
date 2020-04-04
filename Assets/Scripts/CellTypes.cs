@@ -8,4 +8,4 @@ public enum CELL_TYPE
     PREDATOR = 1,
     PREY = 2,
     VEGETABLE = 3
-};
+}
