@@ -1,14 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-
+using UnityEngine.UI;
+using System;
 
 public class RenderGrid : MonoBehaviour
 {
-    public float updateFrequency = 1f;
-    public int gridHorizontalUnits = 50;
-    public int gridVerticalUnits = 50;
+    private float updateFrequency = 0.1f;
+    private int gridHorizontalUnits = 50;
+    private int gridVerticalUnits = 50;
+
+    public Button button0;
+    public InputField inputField;
 
     public GameObject predator;
     public GameObject prey;
@@ -23,11 +26,28 @@ public class RenderGrid : MonoBehaviour
     void Start()
     {
         grid = new CELL_TYPE[gridHorizontalUnits, gridVerticalUnits];
-        grid[0, 1] = CELL_TYPE.PREY;
-        grid[1, 2] = CELL_TYPE.PREY;
-        grid[2, 0] = CELL_TYPE.PREY;
-        grid[2, 1] = CELL_TYPE.PREY;
-        grid[2, 2] = CELL_TYPE.PREY;
+
+        Button btn0 = button0.GetComponent<Button>();
+        InputField input = inputField.GetComponent<InputField>();
+        inputField.gameObject.SetActive(true);
+
+        btn0.onClick.AddListener(() => {
+          inputField.gameObject.SetActive(false);
+          btn0.gameObject.SetActive(false);
+             int cellnumbers = Int32.Parse(input.text);
+             System.Random rnd = new System.Random();
+
+             for (int i = 0; i <= cellnumbers; i++){
+                 int clump_size = rnd.Next(4, 6);
+                 for (int j = 0; j < clump_size; j++){
+                     int x = rnd.Next(0,gridHorizontalUnits);
+                     int y = rnd.Next(0,gridVerticalUnits);
+                     grid[x,y] = CELL_TYPE.PREY;
+                 }
+             }
+             
+          
+          });
 
         cellSize = (Camera.main.orthographicSize * 2) / gridVerticalUnits;
 
