@@ -50,6 +50,23 @@ public class DictionaryGrid<T>
         return content[address];
     }
 
+    /// <summary>
+    /// Gets a value from a cell described by (x, y) address.
+    /// The addressing is resolved as on a surface of a torus
+    /// </summary>
+    public void remove(int x, int y)
+    {
+        x = sanitizeAddress(x, width);
+        y = sanitizeAddress(y, height);
+
+        int address = y * height + x;
+        content.Remove(address);
+    }
+
+    /// <summary>
+    /// Gets a value from a cell described by (x, y) address.
+    /// The addressing is resolved as on a surface of a torus
+    /// </summary>
     public bool containsKey(int x, int y)
     {
         x = sanitizeAddress(x, width);

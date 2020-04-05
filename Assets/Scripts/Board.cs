@@ -11,7 +11,6 @@ public class Board : DictionaryGrid<CELL_TYPE>
 
     }
 
-
     public Board getEmptyCopy()
     {
         return new Board(width, height);
