@@ -121,7 +121,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &1883741904
+--- !u!1 &1796065062
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -129,71 +129,41 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1883741908}
-  - component: {fileID: 1883741907}
-  - component: {fileID: 1883741906}
-  - component: {fileID: 1883741905}
+  - component: {fileID: 1796065064}
+  - component: {fileID: 1796065063}
   m_Layer: 0
-  m_Name: RenderScriptHolder (1)
+  m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1883741905
+--- !u!114 &1796065063
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1883741904}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 069c3a6939aacae458ecfcfaf1d1188a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1883741906
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1883741904}
+  m_GameObject: {fileID: 1796065062}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f6ea12cc7858ce249932aa7cf21fe2a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  button0: {fileID: 0}
-  inputField: {fileID: 0}
   predator: {fileID: 4792745075642156624, guid: 90cdc0fe72d6912449f87f9a8c8a21ad,
     type: 3}
   prey: {fileID: 7067923822638026368, guid: 5d68eb8bd4eaac64c9f1a21384ed0479, type: 3}
   vegetable: {fileID: 7194560640213271648, guid: a2dc44b5842207f42b9ed56cbd1a9f45,
     type: 3}
---- !u!114 &1883741907
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1883741904}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: badf4f7781b89294db7100b505c85291, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  protoCell: {fileID: 1255441982505597100, guid: 9e74f155fe4c22348b296327a19a27e9,
-    type: 3}
---- !u!4 &1883741908
+--- !u!4 &1796065064
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1883741904}
+  m_GameObject: {fileID: 1796065062}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

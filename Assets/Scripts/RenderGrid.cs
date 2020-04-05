@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 // using UnityEngine.UI;
 // using System;
+using gamerules;
 
 public class RenderGrid : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class RenderGrid : MonoBehaviour
     public GameObject prey;
     public GameObject vegetable;
 
-    private CELL_TYPE[,] grid;
+    private Board board;
 
     private float cellSize;
 
@@ -25,7 +26,19 @@ public class RenderGrid : MonoBehaviour
 
     void Start()
     {
-        grid = new CELL_TYPE[gridHorizontalUnits, gridVerticalUnits];
+        board = new Board(gridHorizontalUnits, gridVerticalUnits);
+        board.set(2, 2, CELL_TYPE.VEGETABLE);
+
+        cellSize = (Camera.main.orthographicSize * 2) / gridVerticalUnits;
+
+        cellTypeDict = new Dictionary<CELL_TYPE, GameObject> {
+            { CELL_TYPE.PREDATOR, predator },
+            { CELL_TYPE.PREY, prey },
+            { CELL_TYPE.VEGETABLE, vegetable }
+        };
+
+        draw();
+        InvokeRepeating("step", updateFrequency, updateFrequency);
 
         // Button btn0 = button0.GetComponent<Button>();
         // InputField input = inputField.GetComponent<InputField>();
@@ -51,42 +64,26 @@ public class RenderGrid : MonoBehaviour
 
 
         // });
-
-        cellSize = (Camera.main.orthographicSize * 2) / gridVerticalUnits;
-
-        cellTypeDict = new Dictionary<CELL_TYPE, GameObject> {
-            { CELL_TYPE.PREDATOR, predator },
-            { CELL_TYPE.PREY, prey },
-            { CELL_TYPE.VEGETABLE, vegetable }
-        };
-
-        draw();
-        InvokeRepeating("step", updateFrequency, updateFrequency);
     }
 
 
     void step()
     {
         foreach (GameObject cell in GameObject.FindGameObjectsWithTag("cell")) Destroy(cell);
-        grid = GameRules.step(grid);
+        board = board.applyRules(new VegetableRules());
         draw();
     }
 
     void draw()
     {
-        for (int i = 0; i < grid.GetLength(0); i++)
+        foreach (GridCell<CELL_TYPE> cell in board.cells)
         {
-            for (int j = 0; j < grid.GetLength(1); j++)
-            {
-                spawnCell(grid[i, j], i, j);
-            }
+            spawnCell(cell.x, cell.y, cell.self);
         }
     }
 
-    void spawnCell(CELL_TYPE type, int x, int y)
+    void spawnCell(int x, int y, CELL_TYPE type)
     {
-        if (!cellTypeDict.ContainsKey(type)) return;
-
         Vector3 cellPosition = new Vector3(
             (-cellSize * gridHorizontalUnits / 2) + x * cellSize,
             (cellSize * gridHorizontalUnits / 2) - y * cellSize - cellSize / 2,

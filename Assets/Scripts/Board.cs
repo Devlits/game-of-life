@@ -4,14 +4,32 @@ using UnityEngine;
 
 using gamerules;
 
-public class Board : DictionaryGrid<ICell>
+public class Board : DictionaryGrid<CELL_TYPE>
 {
     public Board (int width, int height) : base(width, height)
     {
 
     }
-    public void applyRules(IRules ruleObject)
+
+
+    public Board getEmptyCopy()
     {
-        ruleObject.apply(this);
+        return new Board(width, height);
+    }
+
+    public Board getCopy()
+    {
+        Board copy = new Board(width, height);
+
+        foreach(GridCell<CELL_TYPE> cell in this.cells)
+            copy.set(cell.x, cell.y, cell.self);
+
+        return copy;
+    }
+
+
+    public Board applyRules(IRules ruleObject)
+    {
+        return ruleObject.apply(this);
     }
 }
