@@ -14,6 +14,7 @@ public class RenderGrid : MonoBehaviour
 
     public Button button0;
     public InputField inputField;
+    public Slider slider0;
 
     public GameObject predator;
     public GameObject prey;
@@ -27,6 +28,35 @@ public class RenderGrid : MonoBehaviour
 
     void Start()
     {
+        grid = new CELL_TYPE[gridHorizontalUnits, gridVerticalUnits];
+
+        Slider sler0 = slider0.GetComponent<Slider>();
+        sler0.minValue = 0.1f;
+        sler0.maxValue = 10f;
+        updateFrequency = sler0.GetComponent<Slider>().value;
+        Debug.Log(updateFrequency);
+
+        Button btn0 = button0.GetComponent<Button>();
+        InputField input = inputField.GetComponent<InputField>();
+        inputField.gameObject.SetActive(true);
+
+        btn0.onClick.AddListener(() => {
+          inputField.gameObject.SetActive(false);
+          btn0.gameObject.SetActive(false);
+             int cellnumbers = Int32.Parse(input.text);
+             System.Random rnd = new System.Random();
+
+             for (int i = 0; i <= cellnumbers; i++){
+                 int clump_size = rnd.Next(4, 6);
+                 for (int j = 0; j < clump_size; j++){
+                     int x = rnd.Next(0,gridHorizontalUnits);
+                     int y = rnd.Next(0,gridVerticalUnits);
+                     grid[x,y] = CELL_TYPE.PREY;
+                 }
+             }
+             
+          
+          });
         board = new Board(gridHorizontalUnits, gridVerticalUnits);
         board.set(2, 2, CELL_TYPE.VEGETABLE);
 
