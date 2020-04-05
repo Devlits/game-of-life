@@ -70,19 +70,7 @@ public class RenderGrid : MonoBehaviour
 
         draw();
         InvokeRepeating("step", updateFrequency, updateFrequency);
-
-        Button btn0 = button0.GetComponent<Button>();
-        InputField input = inputField.GetComponent<InputField>();
-        inputField.gameObject.SetActive(true);
-
-        btn0.onClick.AddListener(() =>
-        {
-            Board newBoard = board.getCopy();
-            inputField.gameObject.SetActive(false);
-            btn0.gameObject.SetActive(false);
-            int cellnumbers = Int32.Parse(input.text);
-            this.GenerateRandomPreys = cellnumbers;
-        });
+        
     }
 
     Board randomSpawn(Board prevState, int cellNumbers)
