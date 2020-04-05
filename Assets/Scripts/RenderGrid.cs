@@ -12,6 +12,7 @@ public class RenderGrid : MonoBehaviour
 
     public Button button0;
     public InputField inputField;
+    public Slider slider0;
 
     public GameObject predator;
     public GameObject prey;
@@ -26,6 +27,12 @@ public class RenderGrid : MonoBehaviour
     void Start()
     {
         grid = new CELL_TYPE[gridHorizontalUnits, gridVerticalUnits];
+
+        Slider sler0 = slider0.GetComponent<Slider>();
+        sler0.minValue = 0.1f;
+        sler0.maxValue = 10f;
+        updateFrequency = sler0.GetComponent<Slider>().value;
+        Debug.Log(updateFrequency);
 
         Button btn0 = button0.GetComponent<Button>();
         InputField input = inputField.GetComponent<InputField>();
