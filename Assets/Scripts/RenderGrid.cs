@@ -28,8 +28,6 @@ public class RenderGrid : MonoBehaviour
 
     void Start()
     {
-        
-
         board = new Board(gridHorizontalUnits, gridVerticalUnits);
         board.set(2, 2, CELL_TYPE.VEGETABLE);
 
