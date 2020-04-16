@@ -16,9 +16,11 @@ namespace gamerules
         protected DictionaryGrid<int> getNeighboursMap(Board board, CELL_TYPE type)
         {
             DictionaryGrid<int> neighboursMap = new DictionaryGrid<int>(board.width, board.height);
-
             foreach (GridCell<CELL_TYPE> item in board.cells)
             {
+                if (!neighboursMap.containsKey(item.x, item.y)) {
+                    neighboursMap.set(item.x, item.y, 0);
+                }
                 for (int x = item.x - 1; x <= item.x + 1; x++)
                 {
                     for (int y = item.y - 1; y <= item.y + 1; y++)

@@ -31,6 +31,9 @@ public class RenderGrid : MonoBehaviour
         board = new Board(gridHorizontalUnits, gridVerticalUnits);
         board.set(2, 2, CELL_TYPE.VEGETABLE);
 
+        board.set(10,10, CELL_TYPE.PREY);
+        board.set(10,11, CELL_TYPE.PREY);
+
         cellSize = (Camera.main.orthographicSize * 2) / gridVerticalUnits;
 
         renderedCells = new Dictionary<CELL_TYPE, GameObject> {
