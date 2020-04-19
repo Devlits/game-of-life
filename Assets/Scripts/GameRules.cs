@@ -16,8 +16,10 @@ namespace gamerules
         protected DictionaryGrid<int> getNeighboursMap(Board board, CELL_TYPE type)
         {
             DictionaryGrid<int> neighboursMap = new DictionaryGrid<int>(board.width, board.height);
-            foreach (GridCell<CELL_TYPE> item in board.cells)
+            foreach (GridCell<ActiveCell> item in board.cells)
             {
+                if (item.self.cell != type) continue;
+
                 if (!neighboursMap.containsKey(item.x, item.y)) {
                     neighboursMap.set(item.x, item.y, 0);
                 }
@@ -25,7 +27,7 @@ namespace gamerules
                 {
                     for (int y = item.y - 1; y <= item.y + 1; y++)
                     {
-                        if (x == item.x && y == item.y || type != item.self) continue;
+                        if (x == item.x && y == item.y || type != item.self.cell) continue;
 
                         if (neighboursMap.containsKey(x, y))
                             neighboursMap.set(x, y, neighboursMap.get(x, y) + 1);
@@ -41,7 +43,7 @@ namespace gamerules
 
     public class VegetableRules: GameRules, IRules
     {
-        float spawnProb = .001f;
+        float spawnProb = .01f;
         float reproductionProb = .01f;
         public Board apply(Board prevState)
         {
@@ -50,18 +52,18 @@ namespace gamerules
             System.Random rnd = new System.Random();
             int randomX = rnd.Next(prevState.width);
             int randomY = rnd.Next(prevState.height);
-            if ( !prevState.containsKey(randomX, randomY) && UnityEngine.Random.Range(0f, 1f) < spawnProb)
-                newState.set(randomX, randomY, CELL_TYPE.VEGETABLE);
+            if ( !prevState.containsCell(randomX, randomY) && UnityEngine.Random.Range(0f, 1f) < spawnProb)
+                newState.setCell(randomX, randomY, CELL_TYPE.VEGETABLE);
 
             DictionaryGrid<int> neighboursMap = getNeighboursMap(prevState, CELL_TYPE.VEGETABLE);
             foreach(GridCell<int> cell in neighboursMap.cells)
             {
-                if (!prevState.containsKey(cell.x, cell.y))
+                if (!prevState.containsCell(cell.x, cell.y))
                 {
                     CELL_TYPE candidate = CELL_TYPE.NULL;
                     float reproductionChance = cell.self * reproductionProb / 8;
                     if (UnityEngine.Random.Range(0f, 1f) < reproductionChance) candidate = CELL_TYPE.VEGETABLE;
-                    if (candidate != CELL_TYPE.NULL) newState.set(cell.x, cell.y, candidate);
+                    if (candidate != CELL_TYPE.NULL) newState.setCell(cell.x, cell.y, candidate);
                 }
             }
 
@@ -78,9 +80,9 @@ namespace gamerules
             foreach (GridCell<int> cell in neighboursMap.cells)
             {
                 if (cell.self == 3)
-                    newState.set(cell.x, cell.y, CELL_TYPE.PREY);
+                    newState.setCell(cell.x, cell.y, CELL_TYPE.PREY);
                 else if (cell.self > 3 || cell.self < 2)
-                    newState.remove(cell.x, cell.y);
+                    newState.removeCell(cell.x, cell.y);
             };
 
             return newState;

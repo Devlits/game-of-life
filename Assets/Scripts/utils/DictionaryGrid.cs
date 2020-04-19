@@ -9,7 +9,7 @@ public class DictionaryGrid<T>
     public int width { get; }
     public int height { get; }
     public System.Collections.Generic.IEnumerable<GridCell<T>> cells { get { return getCells(); } }
-    private Dictionary<int, T> content;
+    protected Dictionary<int, T> content;
 
     public DictionaryGrid(int width, int height)
     {
@@ -18,10 +18,15 @@ public class DictionaryGrid<T>
         this.content = new Dictionary<int, T>();
     }
 
-    private int sanitizeAddress (int num, int max)
+    protected int sanitizeAddress (int x, int y)
     {
-        num = num % max;
-        return (num >= 0) ? num : max + num;
+        x = x % width;
+        x = (x >= 0) ? x : width + x;
+
+        y = y % width;
+        y = (y >= 0) ? y : width + y;
+
+        return y * height + x;
     }
 
     /// <summary>
@@ -30,10 +35,7 @@ public class DictionaryGrid<T>
     /// </summary>
     public void set(int x, int y, T val)
     {
-        x = sanitizeAddress(x, width);
-        y = sanitizeAddress(y, height);
-
-        int address = y * height + x;
+        int address = sanitizeAddress(x, y);
         content[address] = val;
     }
 
@@ -43,10 +45,7 @@ public class DictionaryGrid<T>
     /// </summary>
     public T get(int x, int y)
     {
-        x = sanitizeAddress(x, width);
-        y = sanitizeAddress(y, height);
-
-        int address = y * height + x;
+        int address = sanitizeAddress(x, y);
         return content[address];
     }
 
@@ -56,10 +55,7 @@ public class DictionaryGrid<T>
     /// </summary>
     public void remove(int x, int y)
     {
-        x = sanitizeAddress(x, width);
-        y = sanitizeAddress(y, height);
-
-        int address = y * height + x;
+        int address = sanitizeAddress(x, y);
         content.Remove(address);
     }
 
@@ -69,10 +65,7 @@ public class DictionaryGrid<T>
     /// </summary>
     public bool containsKey(int x, int y)
     {
-        x = sanitizeAddress(x, width);
-        y = sanitizeAddress(y, height);
-        int address = y * height + x;
-
+        int address = sanitizeAddress(x, y);
         return content.ContainsKey(address);
     }
     public void setRaw(int address, T val)

@@ -29,10 +29,11 @@ public class RenderGrid : MonoBehaviour
     void Start()
     {
         board = new Board(gridHorizontalUnits, gridVerticalUnits);
-        board.set(2, 2, CELL_TYPE.VEGETABLE);
+        board.setCell(2, 2, CELL_TYPE.VEGETABLE);
 
-        board.set(10,10, CELL_TYPE.PREY);
-        board.set(10,11, CELL_TYPE.PREY);
+        board.setCell(9,10, CELL_TYPE.PREY);
+        board.setCell(10,10, CELL_TYPE.PREY);
+        board.setCell(10,11, CELL_TYPE.PREY);
 
         cellSize = (Camera.main.orthographicSize * 2) / gridVerticalUnits;
 
@@ -69,7 +70,7 @@ public class RenderGrid : MonoBehaviour
             {
                 int x = rnd.Next(0, gridHorizontalUnits);
                 int y = rnd.Next(0, gridVerticalUnits);
-                newState.set(x, y, CELL_TYPE.PREY);
+                newState.setCell(x, y, CELL_TYPE.PREY);
             }
         }
 
@@ -92,8 +93,8 @@ public class RenderGrid : MonoBehaviour
 
     void draw()
     {
-        foreach (GridCell<CELL_TYPE> cell in board.cells)
-            spawnCell(cell.x, cell.y, cell.self);
+        foreach (GridCell<ActiveCell> cell in board.cells)
+            spawnCell(cell.x, cell.y, cell.self.cell);
     }
 
     void spawnCell(int x, int y, CELL_TYPE type)

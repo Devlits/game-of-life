@@ -9,3 +9,9 @@ public enum CELL_TYPE
     PREY = 2,
     VEGETABLE = 3
 }
+
+public enum ENV_TYPE
+{
+    NULL = 0,
+    PLAGUE = 1
+}
